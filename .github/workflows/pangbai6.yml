@@ -1,0 +1,28 @@
+name: pangbai6-sync
+on:
+  schedule:
+    - cron: '1 8-23/7 * * *'
+  workflow_dispatch:
+  watch:
+    types: started
+  repository_dispatch:
+    types: sync-pangbai6-GithubSync
+jobs:
+  repo-sync:
+    env:
+      PAT: ${{ secrets.PAT }} 
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: sync CenBoMin-GithubSync
+        uses: repo-sync/github-sync@v2
+        if: env.PAT
+        with:
+          source_repo: "https://github.com/pangbai6/pangbai66.git"
+          source_branch: "main"
+          destination_branch: "pangbai6"
+          github_token: ${{ secrets.PAT }}
