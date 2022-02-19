@@ -1,7 +1,7 @@
 name: pangbai6-sync
 on:
   schedule:
-    - cron: '1 8-23/7 * * *'
+    - cron: '10 8-23/7 * * *'
   workflow_dispatch:
   watch:
     types: started
